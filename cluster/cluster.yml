@@ -1,0 +1,85 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-cluster
+spec:
+  hosts:
+  - role: controller+worker
+    ssh:
+      address: 192.168.122.11
+      user: core
+      port: 22
+  #- role: worker
+  #  ssh:
+  #    address: 192.168.122.11
+  #    user: core
+  #    port: 22
+  #- role: worker
+  #  ssh:
+  #    address: 192.168.122.12
+  #    user: core
+  #    port: 22
+  #- role: worker
+  #  ssh:
+  #    address: 192.168.122.13
+  #    user: core
+  #    port: 22
+
+  k0s:
+    version: 1.22.2+k0s.1
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: k0s
+      spec:
+        network:
+          provider: custom
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        telemetry:
+          enabled: false
+        extensions:
+          helm:
+            repositories:
+            - name: cilium
+              url: https://helm.cilium.io
+            - name: metallb
+              url: https://metallb.github.io/metallb
+            - name: traefik
+              url: https://helm.traefik.io/traefik
+#            - name: openebs
+#              url: https://openebs.github.io/charts
+            charts:
+            - name: cilium
+              chartname: cilium/cilium
+              version: "1.10.5"
+              namespace: kube-system
+            - name: metallb
+              chartname: metallb/metallb
+              version: "0.10.3"
+              namespace: metallb-system
+              values: |
+                configInline:
+                  address-pools:
+                  - name: default
+                    protocol: layer2
+                    addresses:
+                      - 192.168.122.10/32
+            - name: traefik
+              chartname: traefik/traefik
+              version: "v10.6.0"
+              namespace: ingress
+#            - name: openebs
+#              chartname: openebs/openebs
+#              version: "3.0.2"
+#              namespace: openebs
+#              values: |
+#                cstor:
+#                  enabled: true
+#                localprovisioner:
+#                  enabled: false
+#                jiva:
+#                  enabled: false
+#                legacy:
+#                  enabled: false
