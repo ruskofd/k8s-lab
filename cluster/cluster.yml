@@ -9,6 +9,9 @@ spec:
       address: 192.168.122.11
       user: core
       port: 22
+    # Disable native kube-proxy to use Cilium as kube-proxy remplacement
+    installFlags:
+      - --disable-components kube-proxy
   #- role: worker
   #  ssh:
   #    address: 192.168.122.11
@@ -55,6 +58,10 @@ spec:
               chartname: cilium/cilium
               version: "1.10.5"
               namespace: kube-system
+              values: |
+                kubeProxyReplacement: strict
+                k8sServiceHost: 192.168.122.11
+                k8sServicePort: 6443
             - name: metallb
               chartname: metallb/metallb
               version: "0.10.3"
