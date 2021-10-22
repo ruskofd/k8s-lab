@@ -4,7 +4,7 @@ metadata:
   name: k0s-cluster
 spec:
   hosts:
-  - role: controller+worker
+  - role: controller
     ssh:
       address: 192.168.122.11
       user: core
@@ -12,21 +12,21 @@ spec:
     # Disable native kube-proxy to use Cilium as kube-proxy remplacement
     installFlags:
       - --disable-components kube-proxy
-  #- role: worker
-  #  ssh:
-  #    address: 192.168.122.11
-  #    user: core
-  #    port: 22
-  #- role: worker
-  #  ssh:
-  #    address: 192.168.122.12
-  #    user: core
-  #    port: 22
-  #- role: worker
-  #  ssh:
-  #    address: 192.168.122.13
-  #    user: core
-  #    port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.12
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.13
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.14
+      user: core
+      port: 22
 
   k0s:
     version: 1.22.2+k0s.1
