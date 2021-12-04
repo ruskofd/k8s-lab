@@ -2,21 +2,31 @@
 
 Various configurations and deployments for my personal Kubernetes lab cluster.
 
-* **Operating System** : Ubuntu Server 21.10 *Impish Indri*
-* **Kubernetes distribution** : `k0s` 1.22.2 (+ `k0sctl` to deploy the cluster)
+### Bootstrap a cluster
 
-## Bootstrap a cluster
+To bootstrap a cluster, simply use the following command :
 
 ```shell
-$ k0sctl apply -c ./cluster/cluster.yml
+$ k0sctl apply -c ./k0s/cluster.yml
 ```
-## How-to
+
+### Components used
+
+- Kubernetes distribution : k0s (with `k0sctl` as deployment tool)
+- CRI : containerd
+- CNI : Cilium (configured as `kube-proxy` replacement)
+- CSI : *TBD*
+- Load Balancer : MetalLB
+- Ingress Controller : Traefik
+
+### How-to
 
 * [Kubernetes Without kube-proxy](https://docs.cilium.io/en/v1.10/gettingstarted/kubeproxy-free/)
 
-## References
-* k0s : https://k0sproject.io/
-* k0sctl : https://github.com/k0sproject/k0sctl
-* Cilium : https://cilium.io/
-* MetalLB : https://metallb.universe.tf/
-* Traefik : https://traefik.io/
+### References
+
+- k0s : https://k0sproject.io/
+- k0sctl : https://github.com/k0sproject/k0sctl
+- Cilium : https://cilium.io/
+- MetalLB : https://metallb.universe.tf/
+- Traefik : https://traefik.io/
