@@ -29,7 +29,7 @@ spec:
       port: 22
 
   k0s:
-    version: 1.22.2+k0s.1
+    version: 1.22.4+k0s.1
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: Cluster
@@ -64,7 +64,7 @@ spec:
                 k8sServicePort: 6443
             - name: metallb
               chartname: metallb/metallb
-              version: "0.10.3"
+              version: "0.11.0"
               namespace: metallb-system
               values: |
                 configInline:
@@ -75,7 +75,7 @@ spec:
                       - 192.168.122.10/32
             - name: traefik
               chartname: traefik/traefik
-              version: "v10.6.0"
+              version: "v10.6.2"
               namespace: ingress
 #            - name: openebs
 #              chartname: openebs/openebs
