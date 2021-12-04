@@ -12,12 +12,12 @@ $ k0sctl apply -c ./k0s/cluster.yml
 
 ### Components used
 
-- Kubernetes distribution : k0s (with `k0sctl` as deployment tool)
-- CRI : containerd
-- CNI : Cilium (configured as `kube-proxy` replacement)
-- CSI : *TBD*
-- Load Balancer : MetalLB
-- Ingress Controller : Traefik
+-** Kubernetes distribution** : k0s (with `k0sctl` as deployment tool)
+- **CRI** : containerd
+- **CNI** : Cilium (configured as `kube-proxy` replacement)
+- **CSI** : *TBD*
+- **Load Balancer** : MetalLB
+- **Ingress Controller** : Traefik
 
 ### How-to
 
