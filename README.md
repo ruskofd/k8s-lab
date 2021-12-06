@@ -2,6 +2,25 @@
 
 Various configurations and deployments for my personal Kubernetes lab cluster.
 
+### Cluster specifications
+
+![My Kubernetes cluster](docs/cluster.png)
+
+* **Components**
+
+  - **Kubernetes distribution** : k0s (with `k0sctl` as deployment tool)
+  - **CRI** : containerd
+  - **CNI** : Calico
+  - **CSI** : OpenEBS
+  - **Load Balancer** : MetalLB
+  - **Ingress Controller** : Traefik
+
+* **Sizing**
+
+  - 1x HAProxy (Control Plane load balancer)
+  - 3x Controller nodes in HA mode (2vCPU / 2GB RAM each)
+  - 3x Worker nodes (8vCPU / 16GB RAM each)
+
 ### Bootstrap a cluster
 
 To bootstrap a cluster, simply use the following command :
@@ -10,23 +29,11 @@ To bootstrap a cluster, simply use the following command :
 $ k0sctl apply -c ./k0s/cluster.yml
 ```
 
-### Components used
-
-- **Kubernetes distribution** : k0s (with `k0sctl` as deployment tool)
-- **CRI** : containerd
-- **CNI** : Cilium (configured as `kube-proxy` replacement)
-- **CSI** : *TBD*
-- **Load Balancer** : MetalLB
-- **Ingress Controller** : Traefik
-
-### How-to
-
-* [Kubernetes Without kube-proxy](https://docs.cilium.io/en/v1.10/gettingstarted/kubeproxy-free/)
-
 ### References
 
 - k0s : https://k0sproject.io/
 - k0sctl : https://github.com/k0sproject/k0sctl
-- Cilium : https://cilium.io/
+- Calico : https://www.tigera.io/project-calico/
 - MetalLB : https://metallb.universe.tf/
+- OpenEBS : https://openebs.io/
 - Traefik : https://traefik.io/
