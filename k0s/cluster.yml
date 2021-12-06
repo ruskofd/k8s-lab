@@ -4,89 +4,61 @@ metadata:
   name: k0s-cluster
 spec:
   hosts:
+  #### Controllers
+  #
   - role: controller
-    ssh:
-      address: 192.168.122.11
-      user: core
-      port: 22
-    # Disable native kube-proxy to use Cilium as kube-proxy remplacement
-    installFlags:
-      - --disable-components kube-proxy
-  - role: worker
     ssh:
       address: 192.168.122.12
       user: core
       port: 22
-  - role: worker
+  - role: controller
     ssh:
       address: 192.168.122.13
       user: core
       port: 22
-  - role: worker
+  - role: controller
     ssh:
       address: 192.168.122.14
       user: core
       port: 22
 
+  #### Workers
+  #
+  - role: worker
+    ssh:
+      address: 192.168.122.15
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.16
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.17
+      user: core
+      port: 22
+
+  #### k0s configuration
+  #
   k0s:
-    version: 1.22.4+k0s.1
+    version: "v1.22.4+k0s.1"
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: Cluster
       metadata:
         name: k0s
       spec:
+        api:
+          externalAddress: 192.168.122.11
+          sans:
+            - 192.168.122.11
+        storage:
+          type: etcd
         network:
-          provider: custom
+          provider: calico
         podSecurityPolicy:
           defaultPolicy: 00-k0s-privileged
         telemetry:
           enabled: false
-        extensions:
-          helm:
-            repositories:
-            - name: cilium
-              url: https://helm.cilium.io
-            - name: metallb
-              url: https://metallb.github.io/metallb
-            - name: traefik
-              url: https://helm.traefik.io/traefik
-#            - name: openebs
-#              url: https://openebs.github.io/charts
-            charts:
-            - name: cilium
-              chartname: cilium/cilium
-              version: "1.10.5"
-              namespace: kube-system
-              values: |
-                kubeProxyReplacement: strict
-                k8sServiceHost: 192.168.122.11
-                k8sServicePort: 6443
-            - name: metallb
-              chartname: metallb/metallb
-              version: "0.11.0"
-              namespace: metallb-system
-              values: |
-                configInline:
-                  address-pools:
-                  - name: default
-                    protocol: layer2
-                    addresses:
-                      - 192.168.122.10/32
-            - name: traefik
-              chartname: traefik/traefik
-              version: "v10.6.2"
-              namespace: ingress
-#            - name: openebs
-#              chartname: openebs/openebs
-#              version: "3.0.2"
-#              namespace: openebs
-#              values: |
-#                cstor:
-#                  enabled: true
-#                localprovisioner:
-#                  enabled: false
-#                jiva:
-#                  enabled: false
-#                legacy:
-#                  enabled: false
