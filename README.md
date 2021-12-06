@@ -20,7 +20,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 **Nodes specifications**
 
   - 1x HAProxy (Control Plane load balancer and administration entrypoint)
-  - 3x Controller nodes in HA with `etcd` cluster embedded (2vCPU - 2GB RAM each)
+  - 3x Controller nodes in HA mode with elastic `etcd` cluster embedded (2vCPU - 2GB RAM each)
   - 3x Worker nodes (8vCPU - 16GB RAM each)
 
 ### Bootstrap a cluster
