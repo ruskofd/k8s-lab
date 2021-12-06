@@ -17,7 +17,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - **Load Balancer** : MetalLB
   - **Ingress Controller** : Traefik
 
-**Nodes specifications**
+**Nodes description**
 
   - 1x HAProxy (Control Plane entrypoint for administration and nodes registration)
   - 3x Controller nodes in HA mode with elastic `etcd` cluster embedded (2vCPU - 2GB RAM each)
