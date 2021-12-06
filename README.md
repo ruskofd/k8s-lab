@@ -25,7 +25,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 ### Bootstrap a cluster
 
-To bootstrap a cluster, simply use the following command :
+To bootstrap the cluster, simply use the following `k0sctl` command :
 
 ```shell
 $ k0sctl apply -c ./k0s/cluster.yml
