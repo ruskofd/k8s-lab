@@ -10,7 +10,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 **Components**
 
-  - **Kubernetes distribution** : k0s (with `k0sctl` as deployment tool)
+  - **Kubernetes distribution** : k0s 1.22.4 (with `k0sctl` as deployment tool)
   - **CRI** : containerd
   - **CNI** : Calico
   - **CSI** : OpenEBS
