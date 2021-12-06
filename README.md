@@ -4,11 +4,11 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 ### Cluster specifications
 
-* **Overview**
+**Overview**
 
 ![My Kubernetes cluster](docs/cluster.png)
 
-* **Components**
+**Components**
 
   - **Kubernetes distribution** : k0s (with `k0sctl` as deployment tool)
   - **CRI** : containerd
@@ -17,7 +17,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - **Load Balancer** : MetalLB
   - **Ingress Controller** : Traefik
 
-* **Sizing**
+**Sizing**
 
   - 1x HAProxy (Control Plane load balancer)
   - 3x Controller nodes in HA mode (2vCPU / 2GB RAM each)
