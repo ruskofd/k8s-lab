@@ -4,6 +4,8 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 ### Cluster specifications
 
+* **Overview**
+
 ![My Kubernetes cluster](docs/cluster.png)
 
 * **Components**
