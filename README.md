@@ -22,6 +22,8 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - 1x HAProxy (Control Plane entrypoint for administration and nodes registration)
   - 3x Controller nodes in HA mode with elastic `etcd` cluster embedded (2vCPU - 2GB RAM each)
   - 3x Worker nodes (8vCPU - 16GB RAM + 100GB of block storage each)
+ 
+The cluster is mainly composed of KVM virtual machines (using [LXD](https://linuxcontainers.org/lxd/)), except HA Proxy which is a LXC container.
 
 ### Bootstrap a cluster
 
