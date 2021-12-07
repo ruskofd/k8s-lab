@@ -16,3 +16,9 @@ Various notes on deploying Charts on my cluster
     strictARP: true
   ```
 
+## Charts references
+
+- **MetalLB** : https://github.com/metallb/metallb/tree/main/charts/metallb
+- **OpenEBS** : https://github.com/openebs/charts
+- **Traefik** : https://github.com/traefik/traefik-helm-chart
+- **Velero** : https://vmware-tanzu.github.io/helm-charts/ 
