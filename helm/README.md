@@ -7,13 +7,13 @@ Various notes on deploying Charts on my cluster
   To enable strict ARP mode, simply edit the `kube-proxy` ConfigMap :
 
   ```YAML
-  kubectl edit configmap -n kube-system kube-proxy
+  $ kubectl edit configmap -n kube-system kube-proxy
   
-  apiVersion: kubeproxy.config.k8s.io/v1alpha1
-  kind: KubeProxyConfiguration
-  mode: "ipvs"
-  ipvs:
-    strictARP: true
+    apiVersion: kubeproxy.config.k8s.io/v1alpha1
+    kind: KubeProxyConfiguration
+    mode: "ipvs"
+    ipvs:
+      strictARP: true
   ```
 
 ## Charts references
