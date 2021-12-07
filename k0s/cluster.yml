@@ -58,6 +58,8 @@ spec:
           type: etcd
         network:
           provider: calico
+          kubeProxy:
+            mode: ipvs
         podSecurityPolicy:
           defaultPolicy: 00-k0s-privileged
         telemetry:
