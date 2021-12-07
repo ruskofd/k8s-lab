@@ -1,0 +1,4 @@
+---
+# Enable cStor CSI driver
+cstor:
+  enabled: true
