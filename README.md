@@ -10,7 +10,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 **Components**
 
-  - **Kubernetes distribution** : k0s 1.22.4 (with `k0sctl` as deployment tool)
+  - **Kubernetes distribution** : k0s 1.22.4 
   - **CRI** : containerd
   - **CNI** : Calico
   - **CSI** : OpenEBS
@@ -24,14 +24,6 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - 3x Worker nodes (8vCPU - 16GB RAM + 100GB of block storage each)
  
 The cluster is mainly composed of KVM virtual machines (using [LXD](https://linuxcontainers.org/lxd/)), except HAProxy which is an LXC container.
-
-### Bootstrap a cluster
-
-To bootstrap the cluster, simply use the following `k0sctl` command :
-
-```shell
-$ k0sctl apply -c ./k0s/cluster.yml
-```
 
 ### References
 
