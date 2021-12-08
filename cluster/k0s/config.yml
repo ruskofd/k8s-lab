@@ -1,0 +1,68 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-cluster
+spec:
+  hosts:
+  #### Controllers
+  #
+  - role: controller
+    ssh:
+      address: 192.168.122.12
+      user: core
+      port: 22
+  - role: controller
+    ssh:
+      address: 192.168.122.13
+      user: core
+      port: 22
+  - role: controller
+    ssh:
+      address: 192.168.122.14
+      user: core
+      port: 22
+
+  #### Workers
+  #
+  - role: worker
+    ssh:
+      address: 192.168.122.15
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.16
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.17
+      user: core
+      port: 22
+
+  #### k0s configuration
+  #
+  k0s:
+    version: v1.22.4+k0s.1
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: k0s
+      spec:
+        api:
+          externalAddress: 192.168.122.11
+          sans:
+            - 192.168.122.11
+        storage:
+          type: etcd
+        network:
+          provider: calico
+          podCIDR: 10.244.0.0/16
+          serviceCIDR: 10.96.0.0/12
+          kubeProxy:
+            mode: ipvs
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        telemetry:
+          enabled: false
