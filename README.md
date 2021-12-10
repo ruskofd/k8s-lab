@@ -6,7 +6,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 **Overview**
 
-![My Kubernetes cluster](docs/cluster.png)
+![My Kubernetes cluster](docs/cluster-10122021.png)
 
 **Components**
 
@@ -14,12 +14,12 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - **CRI** : containerd
   - **CNI** : Calico
   - **CSI** : OpenEBS
-  - **Load Balancer** : MetalLB
-  - **Ingress Controller** : Traefik
+  - **Load Balancer** : HAProxy (external)
+  - **Ingress Controller** : HAProxy Ingress Controller
 
 **Nodes description**
 
-  - 1x HAProxy (Control Plane entrypoint for administration and nodes registration)
+  - 2x HAProxy in Active/Passive mode using Keepalived (Control Plane entrypoint, nodes registration and Load Balancing for cluster resources access)
   - 3x Controller nodes in HA mode with elastic `etcd` cluster embedded (2vCPU - 2GB RAM each)
   - 3x Worker nodes (8vCPU - 16GB RAM + 100GB of block storage each)
  
@@ -30,6 +30,6 @@ The cluster is mainly composed of KVM virtual machines (using [LXD](https://linu
 - k0s : https://k0sproject.io/
 - k0sctl : https://github.com/k0sproject/k0sctl
 - Calico : https://www.tigera.io/project-calico/
-- MetalLB : https://metallb.universe.tf/
+- HAProxy : https://www.haproxy.com/
+- HAProxy Ingress Controller : https://www.haproxy.com/documentation/kubernetes/latest/
 - OpenEBS : https://openebs.io/
-- Traefik : https://traefik.io/

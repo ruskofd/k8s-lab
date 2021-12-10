@@ -8,17 +8,17 @@ spec:
   #
   - role: controller
     ssh:
-      address: 192.168.122.12
-      user: core
-      port: 22
-  - role: controller
-    ssh:
-      address: 192.168.122.13
-      user: core
-      port: 22
-  - role: controller
-    ssh:
       address: 192.168.122.14
+      user: core
+      port: 22
+  - role: controller
+    ssh:
+      address: 192.168.122.15
+      user: core
+      port: 22
+  - role: controller
+    ssh:
+      address: 192.168.122.16
       user: core
       port: 22
 
@@ -26,17 +26,17 @@ spec:
   #
   - role: worker
     ssh:
-      address: 192.168.122.15
-      user: core
-      port: 22
-  - role: worker
-    ssh:
-      address: 192.168.122.16
-      user: core
-      port: 22
-  - role: worker
-    ssh:
       address: 192.168.122.17
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.18
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 192.168.122.19
       user: core
       port: 22
 
