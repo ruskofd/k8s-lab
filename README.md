@@ -23,7 +23,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
   - 3x Controller nodes in HA mode with `etcd` cluster embedded (2vCPU - 2GB RAM each)
   - 3x Worker nodes (8vCPU - 16GB RAM + 100GB of block storage each)
  
-The cluster is composed of KVM virtual machi0nes managed by [LXD](https://linuxcontainers.org/lxd/).
+The cluster is composed of KVM virtual machines managed by [LXD](https://linuxcontainers.org/lxd/).
 
 ### References
 
