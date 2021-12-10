@@ -19,7 +19,7 @@ Various configurations and deployments for my personal Kubernetes lab cluster.
 
 **Nodes description**
 
-  - 2x HAProxy in Active/Passive mode using Keepalived (Control Plane entrypoint, nodes registration and Load Balancing for cluster resources access)
+  - 2x HAProxy in dual Active/Passive mode using Keepalived (Control Plane entrypoint, nodes registration and Load Balancing for cluster resources access)
   - 3x Controller nodes in HA mode with `etcd` cluster embedded (2vCPU - 2GB RAM each)
   - 3x Worker nodes (8vCPU - 16GB RAM + 100GB of block storage each)
  
