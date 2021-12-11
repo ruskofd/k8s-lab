@@ -1,5 +1,3 @@
-## Notes
-
 ### Bootstrap the cluster using k0sctl
 
 To bootstrap the cluster, simply use the following `k0sctl` command :

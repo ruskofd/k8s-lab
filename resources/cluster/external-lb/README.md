@@ -1,5 +1,3 @@
-## Notes
-
 ### HAProxy
 
 **Allow HAProxy to bind to non-local IP addresses when using Keepalived VIP**
