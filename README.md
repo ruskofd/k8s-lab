@@ -10,7 +10,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
 ### Components
 
-  - **Kubernetes distribution** : `k0s` 1.22.4 
+  - **Kubernetes distribution** : k0s 1.22.4 
   - **CRI** : containerd
   - **CNI** : Calico
   - **CSI** : OpenEBS
