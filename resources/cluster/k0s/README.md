@@ -1,4 +1,4 @@
-### Bootstrap the cluster using k0sctl
+### Bootstrap a cluster with k0s/k0sctl
 
 To bootstrap the cluster, simply use the following `k0sctl` command :
 
@@ -12,7 +12,4 @@ Once the cluster is deployed, you can retrieve the `kubeconfig` file in order to
 $ k0sctl kubeconfig -c /path/to/k0sctl.yml > $HOME/.kube/config
 ```
 
-### References
-
-- k0s : https://k0sproject.io/
-- k0sctl : https://github.com/k0sproject/k0sctl
+[Return to main page](../../README.md)
