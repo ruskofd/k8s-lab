@@ -4,11 +4,11 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
 ## Cluster design
 
-### Overview**
+### Overview
 
 ![My Kubernetes cluster](docs/cluster-10122021-1.png)
 
-### Components**
+### Components
 
   - **Kubernetes distribution** : `k0s` 1.22.4 
   - **CRI** : containerd
@@ -17,7 +17,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
   - **Ingress Controller** : HAProxy Ingress Controller
   - **Load Balancer (external)** : HAProxy
 
-### Nodes description**
+### Nodes description
 
   - 2x **HAProxy external LB** in dual Active/Passive mode (Control Plane/administration entrypoint, nodes registration and Load Balancing for cluster resources access)
   - 3x **Controller** nodes in HA mode with `etcd` cluster embedded (with 2vCPU/2GB RAM each)
