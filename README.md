@@ -31,5 +31,4 @@ The cluster is composed of KVM virtual machines managed by [LXD](https://linuxco
 - HAProxy : https://www.haproxy.com/
 - HAProxy Ingress Controller : https://www.haproxy.com/documentation/kubernetes/latest/
 - k0s : https://k0sproject.io/
-- k0sctl : https://github.com/k0sproject/k0sctl
 - OpenEBS : https://openebs.io/

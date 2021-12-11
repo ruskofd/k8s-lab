@@ -1,21 +1,17 @@
-Various notes on cluster infrastructure deployment.
+## Table of Contents
 
-## Bootstrap the cluster using k0sctl
+  - Cluster
+    - [Bootstrap a cluster with k0s/k0sctl](cluster/k0s/)
+    - [External Load Balancer with HAProxy](cluster/external-lb/)
+  - Deployments
+    - [ArgoCD](deployments/argocd)
+    - [HAProxy Kubernetes Ingress Controller](deployments/haproxy-ingress)
+    - [OpenEBS](deployments/openebs)
+    - [Velero](deployments/velero)
 
-To bootstrap the cluster, simply use the following `k0sctl` command :
+## Notes
 
-```shell
-$ k0sctl apply -c ./bootstrap/cluster.yml
-```
-
-## HAProxy
-
-**Allow HAProxy to bind to non-local IP addresses when using Keepalived VIP**
-
-```shell
-net.ipv4.ip_nonlocal_bind = 1
-net.ipv6.ip_nonlocal_bind = 1
-```
+*NONE*
 
 ## References
 
