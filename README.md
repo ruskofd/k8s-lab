@@ -25,10 +25,25 @@ Repository containing all configurations used to deploy my personal Kubernetes l
  
 The cluster is composed of KVM virtual machines managed by [LXD](https://linuxcontainers.org/lxd/).
 
+## Cluster administration
+
+* **Cluster bootstrap**
+  - [Bootstrap a cluster with k0s/k0sctl](cluster/k0s/)
+  - [External Load Balancer with HAProxy and Keepalived](cluster/external-lb/)
+* **Service deployments**
+  - [ArgoCD](deployments/argocd)
+  - [HAProxy Kubernetes Ingress Controller](deployments/haproxy-ingress)
+  - [OpenEBS](deployments/openebs)
+  - [Velero](deployments/velero)
+
 ## References
 
-- Calico : https://www.tigera.io/project-calico/
-- HAProxy : https://www.haproxy.com/
-- HAProxy Ingress Controller : https://www.haproxy.com/documentation/kubernetes/latest/
-- k0s : https://k0sproject.io/
-- OpenEBS : https://openebs.io/
+- **ArgoCD** : https://github.com/argoproj/argo-cd/
+- **Calico** : https://www.tigera.io/project-calico/
+- **HAProxy** : https://www.haproxy.com/
+- **HAProxy Ingress Controller** : https://github.com/haproxytech/kubernetes-ingress
+- **k0s** : https://k0sproject.io/
+- **k0sctl** : https://github.com/k0sproject/k0sctl
+- **Keepalived** : https://github.com/acassen/keepalived
+- **OpenEBS** :  https://github.com/openebs/openebs
+- **Velero** : https://github.com/vmware-tanzu/velero

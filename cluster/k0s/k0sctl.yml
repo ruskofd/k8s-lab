@@ -51,9 +51,9 @@ spec:
         name: k0s
       spec:
         api:
-          externalAddress: 192.168.122.11
+          externalAddress: 192.168.122.10
           sans:
-            - 192.168.122.11
+            - 192.168.122.10
         storage:
           type: etcd
         network:
