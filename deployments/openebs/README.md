@@ -1,4 +1,4 @@
-### OpenEBS
+## OpenEBS
 
 **Install with Helm**
 
@@ -13,7 +13,7 @@
   ```shell
   $ helm repo update
 
-  $ helm install openebs openebs/openebs --create-namespace --namespace openebs -f chart-values.yml [--version <Chart version> ]
+  $ helm install openebs openebs/openebs --create-namespace --namespace openebs -f chart-values.yml
   ```
 
 **Creating cStor storage pools**

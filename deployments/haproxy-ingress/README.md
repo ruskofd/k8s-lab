@@ -1,9 +1,9 @@
-### HAProxy Kubernetes Ingress Controller
+## HAProxy Kubernetes Ingress Controller
 
 **Deployment informations**
 
-Chart Version : `1.17.11`
-App Version : `1.7.3`
+- Chart Version : `1.17.11`
+- App Version : `1.7.3`
 
 **Install with Helm**
 
