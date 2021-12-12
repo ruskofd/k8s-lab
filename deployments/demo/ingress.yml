@@ -1,2 +1,19 @@
 ---
-# empty
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: echo-ingress
+    annotations:
+        haproxy.org/path-rewrite: "/"
+        kubernetes.io/ingress.class: haproxy
+spec:
+    rules:
+    - http:
+        paths:
+        - path: /echo
+          pathType: Prefix
+          backend:
+            service:
+              name: echo-service
+              port:
+                number: 8080

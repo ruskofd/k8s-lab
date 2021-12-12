@@ -1,2 +1,13 @@
 ---
-# empty
+apiVersion: v1
+kind: Service
+metadata:
+    name: echo-service
+spec:
+    selector:
+      run: echo
+    ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,2 +1,29 @@
 ---
-# empty
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: echo
+  name: echo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: echo
+  template:
+    metadata:
+      labels:
+        run: echo
+    spec:
+      containers:
+      - name: echo
+        image: jmalloc/echo-server
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
