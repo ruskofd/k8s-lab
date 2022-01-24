@@ -8,17 +8,17 @@ spec:
   #
   - role: controller
     ssh:
-      address: 192.168.122.14
+      address: 10.0.122.12
       user: core
       port: 22
   - role: controller
     ssh:
-      address: 192.168.122.15
+      address: 10.0.122.13
       user: core
       port: 22
   - role: controller
     ssh:
-      address: 192.168.122.16
+      address: 10.0.122.14
       user: core
       port: 22
 
@@ -26,24 +26,24 @@ spec:
   #
   - role: worker
     ssh:
-      address: 192.168.122.17
+      address: 10.0.122.15
       user: core
       port: 22
   - role: worker
     ssh:
-      address: 192.168.122.18
+      address: 10.0.122.16
       user: core
       port: 22
   - role: worker
     ssh:
-      address: 192.168.122.19
+      address: 10.0.122.17
       user: core
       port: 22
 
   #### k0s configuration
   #
   k0s:
-    version: v1.22.4+k0s.1
+    version: v1.23.1+k0s.1
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: Cluster
@@ -51,18 +51,33 @@ spec:
         name: k0s
       spec:
         api:
-          externalAddress: 192.168.122.10
+          externalAddress: 10.0.122.11
           sans:
-            - 192.168.122.10
+            - 10.0.122.11
         storage:
           type: etcd
         network:
           provider: calico
           podCIDR: 10.244.0.0/16
           serviceCIDR: 10.96.0.0/12
-          kubeProxy:
-            mode: ipvs
         podSecurityPolicy:
           defaultPolicy: 00-k0s-privileged
         telemetry:
           enabled: false
+        extensions:
+          helm:
+            repositories:
+            - name: nfs-subdir-external-provisioner
+              url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+            charts:
+            - name: nfs-subdir-external-provisioner
+              chartname: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+              version: "nfs-subdir-external-provisioner-4.0.14"
+              namespace: storage
+              values: |
+                nfs:
+                  server: "10.0.122.5"
+                  path: "/filer/k8s"
+                storageClass:
+                  defaultClass: true
+
