@@ -69,10 +69,14 @@ spec:
             repositories:
             - name: nfs-subdir-external-provisioner
               url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+            - name: metallb
+              url: https://metallb.github.io/metallb
+            - name: haproxytech
+              url: https://haproxytech.github.io/helm-charts
             charts:
             - name: nfs-subdir-external-provisioner
               chartname: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
-              version: "nfs-subdir-external-provisioner-4.0.14"
+              version: "4.0.14"
               namespace: storage
               values: |
                 nfs:
@@ -80,4 +84,26 @@ spec:
                   path: "/filer/k8s"
                 storageClass:
                   defaultClass: true
-
+            - name: metallb
+              chartname: metallb/metallb
+              version: "v0.11.0"
+              namespace: ingress
+              values: |
+                configInline:
+                  address-pools:
+                  - name: default
+                    protocol: layer2
+                    addresses:
+                    - 10.0.122.10/32
+            - name: haproxy-ingress
+              chartname: haproxytech/kubernetes-ingress
+              version: "1.18.1"
+              namespace: ingress
+              values: |
+                controller:
+                  kind: Deployment
+                  ingressClassResource:
+                    name: haproxy
+                    default: true
+                service:
+                  type: LoadBalancer
