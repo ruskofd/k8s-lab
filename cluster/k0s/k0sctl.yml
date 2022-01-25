@@ -60,8 +60,6 @@ spec:
           provider: calico
           podCIDR: 10.244.0.0/16
           serviceCIDR: 10.96.0.0/12
-        podSecurityPolicy:
-          defaultPolicy: 00-k0s-privileged
         telemetry:
           enabled: false
         extensions:
@@ -77,7 +75,7 @@ spec:
             - name: nfs-subdir-external-provisioner
               chartname: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
               version: "4.0.14"
-              namespace: storage
+              namespace: kube-system
               values: |
                 nfs:
                   server: "10.0.122.5"
@@ -87,7 +85,7 @@ spec:
             - name: metallb
               chartname: metallb/metallb
               version: "v0.11.0"
-              namespace: ingress
+              namespace: metallb-system
               values: |
                 configInline:
                   address-pools:

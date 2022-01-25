@@ -10,6 +10,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
 ### Components
 
+  - **Base OS** : Ubuntu 20.04 *Focal Fossa*
   - **Kubernetes distribution** : k0s v1.23.1
   - **CRI** : containerd
   - **CNI** : Calico
@@ -29,11 +30,12 @@ The cluster is composed of KVM virtual machines managed by [LXD](https://linuxco
 ## Cluster administration
 
 * **Cluster bootstrap**
+
   - [Bootstrap a cluster with k0s/k0sctl](cluster/k0s/)
+
 * **Service deployments**
-  - [ArgoCD](deployments/argocd)
+
   - [HAProxy Kubernetes Ingress Controller](deployments/haproxy-ingress)
-  - [Velero](deployments/velero)
 
 ## References
 
