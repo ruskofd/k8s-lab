@@ -1,8 +1,6 @@
 ### Step 1: prepare cluster virtual machines (Flatcar Linux)
 
-In order to setup Flatcar Linux virtual machines, we need to create an Ignition file and provide it at installation. In my homelab, I use an S3 object storage to store and retrieve Ignition files in my VM once they are booted in live environment.
-
-Firstly, create the **Container Linux Config**, this is the "human-readable" version of the Ignition you will generate :
+In order to setup Flatcar Linux virtual machines, we need to create an Ignition file and provide it at installation. Firstly, create the **Container Linux Config**, this is the "human-readable" version of the Ignition you will generate :
 
 ```YAML
 passwd:
