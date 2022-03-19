@@ -6,36 +6,38 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
 ### Overview
 
-![My Kubernetes cluster](docs/cluster-24012022-1.png)
+*To be reworked*
 
 ### Components
 
-  - **Base OS** : Ubuntu 20.04 *Focal Fossa*
-  - **Kubernetes distribution** : k0s v1.23.1
+  - **Base OS** : Flatcar Linux 3033.2.3
+  - **Kubernetes distribution** : k0s `v1.23.3+k0s.1`
   - **CRI** : containerd
   - **CNI** : Calico
-  - **CSI** : NFS Subdir External Provisioner
+  - **CSI** : OpenEBS
   - **Ingress Controller** : HAProxy Ingress Controller
-  - **Load Balancer** : MetalLB
+  - **External Load Balancer** : HAProxy
 
 ### Nodes description
 
-  - 1x **HAProxy external LB** for Control Plane entrypoint and nodes registration
-  - 1x **NFS Server** to provide persistent storage (through NFS External Provisioner)
+  - 1x **HAProxy external LB** for Control Plane entrypoint, nodes registration and workloads (1vCPU/1GB RAM)
   - 3x **Controller** nodes in HA mode with `etcd` cluster embedded (with 2vCPU/2GB RAM each)
   - 3x **Worker** nodes (with 8vCPU/16GB RAM each)
  
-The cluster is composed of KVM virtual machines managed by [LXD](https://linuxcontainers.org/lxd/).
+The cluster is composed of KVM virtual machines managed by [Proxmox VE](https://www.proxmox.com/en/proxmox-ve).
 
 ## Cluster administration
 
 * **Cluster bootstrap**
 
-  - [Bootstrap a cluster with k0s/k0sctl](cluster/k0s/)
+  - [Step 1: prepare cluster virtual machines (Flatcar Linux)](cluster/ignition/)
+  - [Step 2: setup external HAProxy load-balancer](cluster/external-lb/)
+  - [Step 3: bootstrap the cluster with k0s/k0sctl](cluster/k0s/)
 
 * **Service deployments**
 
   - [HAProxy Kubernetes Ingress Controller](deployments/haproxy-ingress)
+  - [Persistent storage using OpenEBS](deployments/openebs)
 
 ## References
 
@@ -45,6 +47,4 @@ The cluster is composed of KVM virtual machines managed by [LXD](https://linuxco
 - **HAProxy Ingress Controller** : https://github.com/haproxytech/kubernetes-ingress
 - **k0s** : https://k0sproject.io/
 - **k0sctl** : https://github.com/k0sproject/k0sctl
-- **NFS Subdir External Provisioner** : https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
-- **MetalLB** : https://metallb.universe.tf/
 - **Velero** : https://github.com/vmware-tanzu/velero

@@ -1,4 +1,4 @@
-### Bootstrap a cluster with k0s/k0sctl
+### Step 3: bootstrap the cluster with k0s/k0sctl
 
 To bootstrap the cluster, simply use the following `k0sctl` command :
 

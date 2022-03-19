@@ -1,0 +1,110 @@
+---
+passwd:
+  users:
+    - name: core
+      password_hash: "$6$89/TQ6qOR7QD2vKY$N5gWkelWi1HjFriSUQAkQfI1wtB/h5Z2HGZ8PZf2bejVDe8MJjK6CusRUtvQwMbycT8HH.VzjGD9J1V2NJql61" # => core
+      ssh_authorized_keys:
+        - ssh-ed25519 <key>
+storage:
+  files:
+    - path: /etc/hostname
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: "<hostname>"
+    - path: /etc/timezone
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: "Europe/Paris"
+    - path: /etc/ssh/sshd_config
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          Port 22
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          SyslogFacility AUTH
+          LogLevel INFO
+          LoginGraceTime 30s
+          PermitRootLogin no
+          AuthenticationMethods publickey
+          PubkeyAuthentication yes
+          PasswordAuthentication no
+          PermitEmptyPasswords no
+          AuthorizedKeysFile .ssh/authorized_keys
+          UsePAM yes
+          X11Forwarding no
+          AllowAgentForwarding yes
+          PrintMotd yes
+          Subsystem sftp internal-sftp
+    - path: /etc/modules-load.d/90-k8s.conf
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          br_netfilter
+          overlay
+    - path: /etc/sysctl.d/90-k8s.conf
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          net.bridge.bridge-nf-call-iptables = 1
+          net.bridge.bridge-nf-call-ip6tables = 1
+          net.ipv4.ip_forward = 1
+          net.ipv4.conf.lxc*.rp_filter = 0
+    - path: /etc/systemd/journald.conf
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          [Journal]
+          Storage=persistent
+          Compress=yes
+          SystemMaxUse=5G
+          SystemMaxFileSize=100M
+          RuntimeMaxUse=100M
+          MaxRetentionSec=7day
+    - path: /etc/systemd/timesyncd.conf
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          [Time]
+          NTP=0.fr.pool.ntp.org pool 1.fr.pool.ntp.org pool 2.fr.pool.ntp.org
+  links:
+    - path: /etc/localtime
+      target: /usr/share/zoneinfo/Europe/Paris
+      overwrite: true
+      filesystem: root
+networkd:
+  units:
+    - name: 90-wired.network
+      contents: |
+        [Match]
+        Name=eth0
+        [Network]
+        DHCP=ipv4
+        [DHCPv4]
+        ClientIdentifier=mac
+        UseDomains=true
+systemd:
+  units:
+    # Enable iSCSI for OpenEBS
+    - name: iscsid.service
+      enabled: true
+    # Disable uneeded container runtime
+    - name: docker.socket
+      enabled: false
+      mask: true
+    - name: docker.service
+      enabled: false
+      mask: true
+    - name: containerd.service
+      enabled: false
+      mask: true
+update:
+  group: stable
+locksmith:
+  reboot_strategy: off
