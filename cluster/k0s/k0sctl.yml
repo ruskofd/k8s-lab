@@ -69,21 +69,27 @@ spec:
             kubeSchedulerUser: kube-scheduler
         telemetry:
           enabled: false
-#        extensions:
-#          helm:
-#            repositories:
-#            - name: haproxytech
-#              url: https://haproxytech.github.io/helm-charts
-#            charts:
-#            - name: haproxy-ingress
-#              chartname: haproxytech/kubernetes-ingress
-#              version: "1.18.1"
-#              namespace: ingress
-#              values: |
-#                controller:
-#                  kind: Deployment
-#                  ingressClassResource:
-#                    name: haproxy
-#                    default: true
-#                service:
-#                  type: LoadBalancer
+        extensions:
+          helm:
+            repositories:
+            - name: haproxytech
+              url: https://haproxytech.github.io/helm-charts
+            charts:
+            - name: haproxy-ingress
+              chartname: haproxytech/kubernetes-ingress
+              version: "1.21.0"
+              namespace: ingress
+              values: |
+                controller:
+                  kind: DaemonSet
+                  service:
+                    type: NodePort
+                    nodePorts:
+                      http: 30080
+                      https: 30443
+                      stat: 31024
+                    externalTrafficPolicy: "Local" # default is "Cluster", setting it to "Local" can helps in preserving client source IP
+                    ingressClassResource:
+                      name: haproxy
+                      default: true
+

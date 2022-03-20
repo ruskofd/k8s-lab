@@ -13,7 +13,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
   - **Base OS** : Flatcar Linux 3033.2.3
   - **Kubernetes distribution** : k0s `v1.23.3+k0s.1`
   - **CRI** : containerd
-  - **CNI** : Calico
+  - **CNI** : Cilium (kube-proxy free mode)
   - **CSI** : OpenEBS
   - **Ingress Controller** : HAProxy Ingress Controller
   - **External Load Balancer** : HAProxy
@@ -23,8 +23,6 @@ Repository containing all configurations used to deploy my personal Kubernetes l
   - 1x **HAProxy external LB** for Control Plane entrypoint, nodes registration and workloads (1vCPU/1GB RAM)
   - 3x **Controller** nodes in HA mode with `etcd` cluster embedded (with 2vCPU/2GB RAM each)
   - 3x **Worker** nodes (with 8vCPU/16GB RAM each)
- 
-The cluster is composed of KVM virtual machines managed by [Proxmox VE](https://www.proxmox.com/en/proxmox-ve).
 
 ## Cluster administration
 
@@ -34,10 +32,9 @@ The cluster is composed of KVM virtual machines managed by [Proxmox VE](https://
   - [Step 2: setup external HAProxy load-balancer](cluster/external-lb/)
   - [Step 3: bootstrap the cluster with k0s/k0sctl](cluster/k0s/)
 
-* **Service deployments**
+* **Services deployment**
 
-  - [HAProxy Kubernetes Ingress Controller](deployments/haproxy-ingress)
-  - [Persistent storage using OpenEBS](deployments/openebs)
+  - [Persistent storage with OpenEBS](deployments/openebs)
 
 ## References
 

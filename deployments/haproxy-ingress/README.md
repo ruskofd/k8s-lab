@@ -7,6 +7,8 @@
 
 **Install with Helm**
 
+*In this lab, HAProxy Ingress Controller is deployed during cluster bootstrap using k0s Helm Charts deployer.*
+
 * First, add the HAProxy Helm repository :
 
   ```shell
