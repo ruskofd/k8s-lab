@@ -8,17 +8,17 @@ spec:
   #
   - role: controller
     ssh:
-      address: 10.0.122.11
+      address: 10.0.122.21
       user: core
       port: 22
   - role: controller
     ssh:
-      address: 10.0.122.12
+      address: 10.0.122.22
       user: core
       port: 22
   - role: controller
     ssh:
-      address: 10.0.122.13
+      address: 10.0.122.23
       user: core
       port: 22
 
@@ -26,24 +26,34 @@ spec:
   #
   - role: worker
     ssh:
-      address: 10.0.122.14
+      address: 10.0.122.24
       user: core
       port: 22
   - role: worker
     ssh:
-      address: 10.0.122.15
+      address: 10.0.122.25
       user: core
       port: 22
   - role: worker
     ssh:
-      address: 10.0.122.16
+      address: 10.0.122.26
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 10.0.122.27
+      user: core
+      port: 22
+  - role: worker
+    ssh:
+      address: 10.0.122.28
       user: core
       port: 22
 
   #### k0s configuration
   #
   k0s:
-    version: v1.23.3+k0s.1 
+    version: v1.23.6+k0s.1 
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: Cluster
@@ -51,15 +61,17 @@ spec:
         name: k0s
       spec:
         api:
-          externalAddress: 10.0.122.10
+          externalAddress: 10.0.122.20
           sans:
-            - 10.0.122.10
+            - 10.0.122.20
         storage:
           type: etcd
         network:
-          provider: calico
+          provider: custom
           podCIDR: 10.244.0.0/16
           serviceCIDR: 10.96.0.0/12
+          kubeProxy:
+            disabled: true
         installConfig:
           users:
             etcdUser: k0s-etcd
@@ -72,24 +84,62 @@ spec:
         extensions:
           helm:
             repositories:
+            - name: cilium
+              url: https://helm.cilium.io/
+            - name: csi-driver-nfs
+              url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+            - name: metallb
+              url: https://metallb.github.io/metallb
             - name: haproxytech
               url: https://haproxytech.github.io/helm-charts
             charts:
+            - name: cilium
+              chartname: cilium/cilium
+              version: "1.11.5"
+              namespace: kube-system
+              values: |
+                ## Configure Cilium IPAM mode to use kubernetes podCIDR range
+                ipam:
+                  mode: kubernetes
+                ## Manage kube-proxy replacement
+                kubeProxyReplacement: strict
+                k8sServiceHost: 10.0.122.20
+                k8sServicePort: 6443
+                ## Enable Hubble
+                hubble:
+                  ui:
+                    enabled: true
+                  relay:
+                    enabled: true
+            - name: csi-driver-nfs
+              chartname: csi-driver-nfs/csi-driver-nfs
+              version: "v4.0.0"
+              namespace: kube-system
+              values: |
+                kubeletDir: "/var/lib/k0s/kubelet"
+            - name: metallb
+              chartname: metallb/metallb
+              version: ""
+              namespace: metallb-system
+              values: |
+                configInline:
+                  address-pools:
+                  - name: default
+                    protocol: layer2
+                    addresses:
+                    - 10.0.122.29/32
             - name: haproxy-ingress
               chartname: haproxytech/kubernetes-ingress
-              version: "1.21.0"
-              namespace: ingress
+              version: "1.21.1"
+              namespace: ingress-system
               values: |
                 controller:
-                  kind: DaemonSet
+                  kind: Deployment
+                  replicaCount: 2
                   service:
-                    type: NodePort
-                    nodePorts:
-                      http: 30080
-                      https: 30443
-                      stat: 31024
-                    externalTrafficPolicy: "Local" # default is "Cluster", setting it to "Local" can helps in preserving client source IP
+                    type: LoadBalancer
                     ingressClassResource:
                       name: haproxy
                       default: true
-
+                defaultBackend:
+                  enabled: false

@@ -1,0 +1,76 @@
+#cloud-config
+# OS: Ubuntu 22.04
+users:
+- name: core
+  groups: [ systemd-journal ]
+  lock_passwd: True
+  sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+  shell: /bin/bash
+  ssh_authorized_keys:
+  - ssh-ed25519 <> 
+write_files:
+- path: /etc/haproxy/haproxy.cfg
+  content: |
+    #---------------------------------------------------------------------
+    # Global settings
+    #---------------------------------------------------------------------
+    global
+        log stdout format raw local0 info 
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+    defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  5000
+    listen stats
+        bind 10.0.122.20:9000
+        mode http
+        stats enable
+        stats uri /stats
+    #---------------------------------------------------------------------
+    # Frontends
+    #---------------------------------------------------------------------
+    frontend k8s_api
+        bind 10.0.122.20:6443
+        mode tcp
+        default_backend k8s_api_backend
+    frontend k8s_konnectivity
+        bind 10.0.122.20:8132
+        mode tcp
+        default_backend k8s_konnectivity_backend
+    frontend k8s_controllerjoin_api
+        bind 10.0.122.20:9443
+        mode tcp
+        default_backend k8s_controllerjoin_api_backend
+    #---------------------------------------------------------------------
+    # Backends
+    #---------------------------------------------------------------------
+    backend k8s_api_backend
+        mode tcp
+        server ck8s01 10.0.122.21:6443 check check-ssl verify none
+        server ck8s02 10.0.122.22:6443 check check-ssl verify none
+        server ck8s03 10.0.122.23:6443 check check-ssl verify none
+    
+    backend k8s_konnectivity_backend
+        mode tcp
+        server ck8s01 10.0.122.21:8132 check check-ssl verify none
+        server ck8s02 10.0.122.22:8132 check check-ssl verify none
+        server ck8s03 10.0.122.23:8132 check check-ssl verify none
+    
+    backend k8s_controllerjoin_api_backend
+        mode tcp
+        server ck8s01 10.0.122.21:9443 check check-ssl verify none
+        server ck8s02 10.0.122.22:9443 check check-ssl verify none
+        server ck8s03 10.0.122.23:9443 check check-ssl verify none
+packages:
+- haproxy
+runcmd:
+- systemctl enable --now haproxy.service

@@ -31,9 +31,14 @@ Repository containing all configurations used to deploy my personal Kubernetes l
   - [Step 2: setup external HAProxy load-balancer (control-plane)](cluster/external-lb/)
   - [Step 3: bootstrap the cluster with k0s/k0sctl](cluster/k0s/)
 
+* **Services deployments**
+
+  - [Persistent storage with NFS CSI driver](deployments/nfs-csi/)
+
 ## References
 
 - **Cilium** : https://cilium.io/
+- **containerd** : https://containerd.io/
 - **HAProxy** : https://www.haproxy.com/
 - **HAProxy Ingress Controller** : https://github.com/haproxytech/kubernetes-ingress
 - **k0s** : https://k0sproject.io/
