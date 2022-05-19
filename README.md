@@ -27,7 +27,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
 * **Cluster bootstrap**
 
-  - [Step 1: prepare cluster virtual machines)](cluster/nodes/)
+  - [Step 1: prepare cluster virtual machines](cluster/nodes/)
   - [Step 2: setup external HAProxy load-balancer (control-plane)](cluster/external-lb/)
   - [Step 3: bootstrap the cluster with k0s/k0sctl](cluster/k0s/)
 
