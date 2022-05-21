@@ -12,7 +12,7 @@ Repository containing all configurations used to deploy my personal Kubernetes l
 
   - **Base OS** : Ubuntu Server 22.04 LTS
   - **Kubernetes distribution** : k0s `v1.23.6+k0s.1`
-  - **CRI** : containerd
+  - **CRI** : containerd (embedded in k0s)
   - **CNI** : Cilium (kube-proxy free mode)
   - **CSI** : NFS CSI driver for Kubernetes
   - **Ingress Controller** : HAProxy Ingress Controller
