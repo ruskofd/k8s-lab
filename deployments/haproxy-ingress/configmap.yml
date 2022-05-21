@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: haproxy-ingress-config
-  namespace: ingress
-data:
-  proxy-protocol: "0.0.0.0/0"
-  syslog-server: 'address:stdout, format: raw, facility:daemon'
