@@ -119,7 +119,7 @@ spec:
                 kubeletDir: "/var/lib/k0s/kubelet"
             - name: metallb
               chartname: metallb/metallb
-              version: ""
+              version: "v0.12.1"
               namespace: metallb-system
               values: |
                 configInline:
